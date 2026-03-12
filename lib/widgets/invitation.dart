@@ -6,7 +6,8 @@ import 'package:wedding/constants/app_colors.dart';
 import '../constants/app_assets.dart';
 
 class InvitationView extends StatefulWidget {
-  const InvitationView({super.key});
+  const InvitationView({super.key, required this.controller});
+  final VideoPlayerController controller;
 
   @override
   State<InvitationView> createState() => _InvitationViewState();
@@ -14,19 +15,12 @@ class InvitationView extends StatefulWidget {
 
 class _InvitationViewState extends State<InvitationView>
     with SingleTickerProviderStateMixin {
-  late VideoPlayerController _controller;
   late AnimationController _arrowAnimationController;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(AppAssets.introLanding)
-      ..initialize().then((_) {
-        setState(() {
-          autoPlay();
-        });
-      });
-
+    autoPlay();
     _arrowAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -34,57 +28,53 @@ class _InvitationViewState extends State<InvitationView>
   }
 
   void autoPlay() async {
-    _controller.setLooping(true);
-    _controller.play();
+    widget.controller.setLooping(true);
+    widget.controller.play();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: _controller.value.isInitialized
+      child: widget.controller.value.isInitialized
           ? Center(
               child: Stack(
                 alignment: .topCenter,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 120),
-                    constraints: BoxConstraints(maxWidth: 500, maxHeight: 620),
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: FittedBox(
-                            fit: .fitWidth,
-                            child: SizedBox(
-                              width: _controller.value.size.width,
-                              height: _controller.value.size.height,
-                              child: VideoPlayer(_controller),
-                            ),
-                          ),
-                        ),
-                      ],
+                    constraints: BoxConstraints(maxWidth: 500),
+                    child: FittedBox(
+                      fit: .fitWidth,
+                      child: SizedBox(
+                        width: widget.controller.value.size.width,
+                        height: widget.controller.value.size.height,
+                        child: VideoPlayer(widget.controller),
+                      ),
                     ),
                   ),
                   Positioned.fill(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 55, bottom: 40),
+                      padding: const EdgeInsets.only(top: 20, bottom: 40),
                       child: Column(
                         children: [
                           Text(
                             "NGÀY CHUNG ĐÔI",
-                            style: TextStyle(color: AppColors.secondary),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.secondary,
+                            ),
                           ),
                           Text(
                             ("Thực & Yến"),
                             style: TextStyle(
                               fontFamily: 'Lavanderia',
-                              fontSize: 60,
+                              fontSize: 50,
                             ),
                           ),
                           Text(
                             "NGÀY 26 THÁNG 9 NĂM 2026",
                             style: TextStyle(
-                              fontSize: 11,
+                              fontSize: 10,
                               color: AppColors.secondary,
                             ),
                           ),
@@ -99,7 +89,7 @@ class _InvitationViewState extends State<InvitationView>
                                   Text(
                                     "Xác nhận tham dự",
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: AppColors.secondary,
                                     ),
                                   ),
@@ -117,8 +107,8 @@ class _InvitationViewState extends State<InvitationView>
                                     },
                                     child: SvgPicture.asset(
                                       AppAssets.icArrowDown,
-                                      width: 16,
-                                      height: 16,
+                                      width: 14,
+                                      height: 14,
                                       colorFilter: const ColorFilter.mode(
                                         AppColors.secondary,
                                         BlendMode.srcIn,
@@ -142,7 +132,6 @@ class _InvitationViewState extends State<InvitationView>
 
   @override
   void dispose() {
-    _controller.dispose();
     _arrowAnimationController.dispose();
     super.dispose();
   }

@@ -20,17 +20,23 @@ class WelcomeView extends StatelessWidget {
           const SizedBox(height: 20),
           LayoutBuilder(
             builder: (context, constraints) {
-              if (constraints.maxWidth > 600) {
+              if (constraints.maxWidth > 800) {
                 return Column(
                   children: [
                     Text(
-                      "Chúng tôi trân trọng mời bạn cùng đến chung vui trong ngày cưới của chúng tôi. ",
+                      "Sự hiện diện của bạn trong ngày trọng đại sẽ là niềm hạnh phúc lớn đối với tụi mình.",
                       style: TextStyle(fontWeight: .w500),
                       textAlign: .center,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "Rất mong được đón tiếp và chia sẻ khoảnh khắc đặc biệt này cùng gia đình và những người thân yêu.",
+                      "Vì vậy, tụi mình rất mong bạn sẽ đến chung vui và chứng kiến khoảnh khắc đặc biệt nhất của hai đứa. ",
+                      style: TextStyle(fontWeight: .w500),
+                      textAlign: .center,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "Sự có mặt của bạn sẽ khiến ngày hôm ấy trở nên trọn vẹn hơn.",
                       style: TextStyle(fontWeight: .w500),
                       textAlign: .center,
                     ),
@@ -38,7 +44,7 @@ class WelcomeView extends StatelessWidget {
                 );
               } else {
                 return Text(
-                  "Chúng tôi trân trọng mời bạn cùng đến chung vui trong ngày cưới của chúng tôi. Rất mong được đón tiếp và chia sẻ khoảnh khắc đặc biệt này cùng gia đình và những người thân yêu.",
+                  "Sự hiện diện của bạn trong ngày trọng đại sẽ là niềm hạnh phúc lớn đối với tụi mình. Vì vậy, tụi mình rất mong bạn sẽ đến chung vui và chứng kiến khoảnh khắc đặc biệt nhất của hai đứa. Sự có mặt của bạn sẽ khiến ngày hôm ấy trở nên trọn vẹn hơn.",
                   style: TextStyle(fontWeight: .w500),
                   textAlign: .center,
                 );
@@ -46,7 +52,12 @@ class WelcomeView extends StatelessWidget {
             },
           ),
           const SizedBox(height: 40),
-          Container(width: 100, height: 1, color: AppColors.line, margin: EdgeInsets.symmetric(vertical: 30),),
+          Container(
+            width: 100,
+            height: 1,
+            color: AppColors.line,
+            margin: EdgeInsets.symmetric(vertical: 30),
+          ),
           Container(
             constraints: BoxConstraints(maxWidth: 150),
             child: Image.asset(AppAssets.floral, fit: .cover),

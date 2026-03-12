@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:video_player/video_player.dart';
 import 'package:wedding/constants/app_colors.dart';
 import 'package:wedding/widgets/countdown.dart';
 import 'package:wedding/widgets/intro.dart';
@@ -53,6 +54,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset(AppAssets.introLanding)
+      ..initialize().then((_) {
+        setState(() {});
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WeddingCubit, WeddingState>(
@@ -66,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 : ListView(
                     physics: BouncingScrollPhysics(),
                     children: [
-                      InvitationView(),
+                      InvitationView(controller: _controller),
                       CountdownView(),
                       WelcomeView(),
                     ],
@@ -109,5 +121,11 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

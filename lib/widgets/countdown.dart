@@ -21,14 +21,14 @@ class _CountdownViewState extends State<CountdownView> {
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       context.read<WeddingCubit>().countRemainingTime();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 300,
       width: double.infinity,
       child: Stack(
