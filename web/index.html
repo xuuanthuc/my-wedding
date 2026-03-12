@@ -41,6 +41,26 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
+
   <script src="flutter_bootstrap.js" async></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBIEze_4-tFHExJ_4f8lJSUIcU5GK8_Lkw",
+      authDomain: "xuanthuc-ngocyen.firebaseapp.com",
+      projectId: "xuanthuc-ngocyen",
+      storageBucket: "xuanthuc-ngocyen.firebasestorage.app",
+      messagingSenderId: "601001184952",
+      appId: "1:601001184952:web:ab9a4c783e9f6a0497ae4d"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
 </body>
 </html>
