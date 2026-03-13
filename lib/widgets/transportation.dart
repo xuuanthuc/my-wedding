@@ -80,7 +80,7 @@ class TransportationView extends StatelessWidget {
                       "GOOGLE MAPS",
                       style: TextStyle(
                         color: AppColors.secondary,
-                        fontSize: 10,
+                        fontSize: 12,
                       ),
                     ),
                     const SizedBox(height: 6),

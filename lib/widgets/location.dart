@@ -48,7 +48,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
             ),
           ),
 
-          Text("Nơi chúng ta tổ chức", style: TextStyle(color: Colors.white)),
+          // Text("Nơi chúng ta tổ chức", style: TextStyle(color: Colors.white)),
           const SizedBox(height: 20),
           Container(
             margin: EdgeInsets.all(20).copyWith(bottom: 120),

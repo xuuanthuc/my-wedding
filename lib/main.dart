@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wedding/constants/app_colors.dart';
 import 'package:wedding/widgets/countdown.dart';
+import 'package:wedding/widgets/footer.dart';
 import 'package:wedding/widgets/gifts.dart';
 import 'package:wedding/widgets/intro.dart';
 import 'package:wedding/widgets/invitation.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: 'Baskerville',
+        fontFamily: 'Niramit',
         colorScheme: ColorScheme(
           brightness: .light,
           primary: AppColors.primary,
@@ -90,7 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       DayProgrammeView(),
                       GiftsView(),
                       TransportationView(),
-                      RSVP()
+                      RSVP(),
+                      Footer(),
                     ],
                   ),
           ),
