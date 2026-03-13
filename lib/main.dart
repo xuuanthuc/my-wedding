@@ -61,6 +61,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late VideoPlayerController _controller;
+  final GlobalKey _targetKey = GlobalKey();
 
   @override
   void initState() {
@@ -81,19 +82,32 @@ class _MyHomePageState extends State<MyHomePage> {
             duration: Duration(milliseconds: 300),
             child: state.introState == .ready
                 ? IntroView()
-                : ListView(
+                : SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
-                    children: [
-                      InvitationView(controller: _controller),
-                      CountdownView(),
-                      WelcomeView(),
-                      LocationCelebrateView(),
-                      DayProgrammeView(),
-                      GiftsView(),
-                      TransportationView(),
-                      RSVP(),
-                      Footer(),
-                    ],
+                    child: Column(
+                      children: [
+                        InvitationView(
+                          controller: _controller,
+                          onTapRegister: () {
+                            final context = _targetKey.currentContext;
+                            if (context == null) return;
+                            Scrollable.ensureVisible(
+                              _targetKey.currentContext!,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                        CountdownView(),
+                        WelcomeView(),
+                        LocationCelebrateView(),
+                        DayProgrammeView(),
+                        GiftsView(),
+                        TransportationView(),
+                        Container(key: _targetKey, child: RSVP()),
+                        Footer(),
+                      ],
+                    ),
                   ),
           ),
           floatingActionButton: state.introState == .played

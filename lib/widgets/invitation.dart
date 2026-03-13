@@ -6,9 +6,14 @@ import 'package:wedding/constants/app_colors.dart';
 import '../constants/app_assets.dart';
 
 class InvitationView extends StatefulWidget {
-  const InvitationView({super.key, required this.controller});
+  const InvitationView({
+    super.key,
+    required this.controller,
+    required this.onTapRegister,
+  });
 
   final VideoPlayerController controller;
+  final VoidCallback onTapRegister;
 
   @override
   State<InvitationView> createState() => _InvitationViewState();
@@ -87,7 +92,9 @@ class _InvitationViewState extends State<InvitationView>
                           Spacer(),
                           InkWell(
                             splashColor: AppColors.primary,
-                            onTap: () {},
+                            onTap: () {
+                              widget.onTapRegister();
+                            },
                             child: Container(
                               color: Colors.transparent,
                               child: Column(

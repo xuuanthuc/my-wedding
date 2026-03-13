@@ -36,6 +36,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primaryBackground,
+      width: double.infinity,
       child: Column(
         children: [
           const SizedBox(height: 80),
