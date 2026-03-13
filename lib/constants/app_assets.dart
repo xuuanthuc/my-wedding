@@ -15,6 +15,15 @@ class AppAssets {
       "${releasePath}white-textured-paper-KasY8RAJ.png";
   static const String icVolumeX = "assets/volume-x.svg";
   static const String icVolume = "assets/volume.svg";
+  static const String icLocation = "assets/location.svg";
+  static const String icCar = "assets/car.svg";
   static const String icArrowDown = "assets/arrow-down.svg";
   static const String floral = "${releasePath}floral-vase-6x28LN74.png";
+  static const String swans = "${releasePath}swans-framed-ByH4RE7t.png";
+  static const String cupid = "${releasePath}cupid-illustration-BO3_EWaD.png";
+  static const String royalEcological = "${releasePath}royal-ecological.png";
+  static const String thucBank = "${releasePath}xuanthuc-bank.jpeg";
+  static const String yenBank = "${releasePath}ngocyen-bank.jpeg";
+  static const String royalEcologicalPic = "${releasePath}royal-ecological-picture.jpg";
+  static const String champagneTower = "${releasePath}champagne-tower-Or6MBjHQ.png";
 }

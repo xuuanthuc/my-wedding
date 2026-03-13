@@ -4,8 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wedding/constants/app_colors.dart';
 import 'package:wedding/widgets/countdown.dart';
+import 'package:wedding/widgets/gifts.dart';
 import 'package:wedding/widgets/intro.dart';
 import 'package:wedding/widgets/invitation.dart';
+import 'package:wedding/widgets/location.dart';
+import 'package:wedding/widgets/programs.dart';
+import 'package:wedding/widgets/register.dart';
+import 'package:wedding/widgets/transportation.dart';
 import 'package:wedding/widgets/welcome.dart';
 import 'constants/app_assets.dart';
 import 'cubit/wedding_cubit.dart';
@@ -81,6 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       InvitationView(controller: _controller),
                       CountdownView(),
                       WelcomeView(),
+                      LocationCelebrateView(),
+                      DayProgrammeView(),
+                      GiftsView(),
+                      TransportationView(),
+                      RSVP()
                     ],
                   ),
           ),

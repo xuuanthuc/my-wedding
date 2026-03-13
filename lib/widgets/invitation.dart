@@ -7,6 +7,7 @@ import '../constants/app_assets.dart';
 
 class InvitationView extends StatefulWidget {
   const InvitationView({super.key, required this.controller});
+
   final VideoPlayerController controller;
 
   @override
@@ -54,23 +55,28 @@ class _InvitationViewState extends State<InvitationView>
                   ),
                   Positioned.fill(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 40),
+                      padding: EdgeInsets.only(
+                        top: widget.controller.value.size.height * 0.02,
+                        bottom: 40,
+                      ),
                       child: Column(
                         children: [
                           Text(
-                            "NGÀY CHUNG ĐÔI",
+                            "NGÀY CHUNG ĐÔI ♥",
                             style: TextStyle(
                               fontSize: 12,
                               color: AppColors.secondary,
                             ),
                           ),
+                          const SizedBox(height: 4),
                           Text(
                             ("Thực & Yến"),
                             style: TextStyle(
                               fontFamily: 'Lavanderia',
-                              fontSize: 50,
+                              fontSize: 60,
                             ),
                           ),
+                          const SizedBox(height: 4),
                           Text(
                             "NGÀY 26 THÁNG 9 NĂM 2026",
                             style: TextStyle(

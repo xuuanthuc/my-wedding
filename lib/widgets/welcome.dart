@@ -9,8 +9,7 @@ class WelcomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: AppColors.primaryBackground,
-      padding: EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+      padding: EdgeInsets.symmetric(vertical: 80, horizontal: 30),
       child: Column(
         children: [
           Text(

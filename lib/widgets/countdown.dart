@@ -29,7 +29,7 @@ class _CountdownViewState extends State<CountdownView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 350,
       width: double.infinity,
       child: Stack(
         children: [
