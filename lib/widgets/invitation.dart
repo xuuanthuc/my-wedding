@@ -26,15 +26,17 @@ class _InvitationViewState extends State<InvitationView>
   @override
   void initState() {
     super.initState();
-    autoPlay();
     _arrowAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     )..repeat(reverse: true);
+    autoPlay();
   }
 
   void autoPlay() async {
+    await Future.delayed(Duration(milliseconds: 300));
     widget.controller.setLooping(true);
+    widget.controller.setVolume(0);
     widget.controller.play();
   }
 
