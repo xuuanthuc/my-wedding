@@ -7,7 +7,7 @@ class AppAssets {
   static const String introLanding = "assets/hero-video-new-G6oopIOA.mp4";
   static const String introEnvelope = "assets/intro-envelope-HFQPjaLP.mp4";
   static const String introEnvelopeThumb =
-      "${releasePath}intro-envelope-poster-Bi8UMZ1A.png";
+      "${releasePath}intro-envelope-poster-Bi8UMZ1A.webp";
   static const String introLandingThumb =
       "${releasePath}hero-video-new-poster-G6oopIOA.webp";
   static const String backgroundMusic = "wedding-march-CDiiiBMO.mp3";
