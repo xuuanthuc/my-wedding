@@ -14,11 +14,11 @@ class WeddingCarousel extends StatefulWidget {
 class _WeddingCarouselState extends State<WeddingCarousel> {
 
   final List<String> images = [
-    "${AppAssets.weddings}1.jpg",
-    "${AppAssets.weddings}2.jpg",
-    "${AppAssets.weddings}3.jpg",
-    "${AppAssets.weddings}4.jpg",
-    "${AppAssets.weddings}5.jpg",
+    "${AppAssets.weddings}1.webp",
+    "${AppAssets.weddings}2.webp",
+    "${AppAssets.weddings}3.webp",
+    "${AppAssets.weddings}4.webp",
+    "${AppAssets.weddings}5.webp",
   ];
 
   final ScrollController controller = ScrollController();
