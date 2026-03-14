@@ -10,6 +10,13 @@ class WeddingCubit extends Cubit<WeddingState> {
 
   final AudioPlayer? audioPlayer = AudioPlayer();
 
+  void initAudioPlayer() async {
+    await audioPlayer?.setSource(
+      AssetSource(AppAssets.backgroundMusic, mimeType: 'audio/mpeg'),
+    );
+    await audioPlayer?.setReleaseMode(ReleaseMode.loop);
+  }
+
   void onClickVolume() async {
     if (audioPlayer?.state == .playing) {
       await audioPlayer?.pause();
@@ -20,10 +27,7 @@ class WeddingCubit extends Cubit<WeddingState> {
   }
 
   void introIsCompleted() async {
-    await audioPlayer?.setReleaseMode(ReleaseMode.loop);
-    await audioPlayer?.play(
-      AssetSource(AppAssets.backgroundMusic, mimeType: 'audio/mpeg'),
-    );
+    await audioPlayer?.resume();
     emit(state.copyWith(introState: .played, enableVolume: true));
   }
 

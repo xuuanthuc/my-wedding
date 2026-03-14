@@ -70,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ..initialize().then((_) {
         setState(() {});
       });
+
+    context.read<WeddingCubit>().initAudioPlayer();
   }
 
   @override
@@ -78,38 +80,78 @@ class _MyHomePageState extends State<MyHomePage> {
       buildWhen: (p, c) => p.introState != c.introState,
       builder: (context, state) {
         return Scaffold(
-          body: AnimatedSwitcher(
-            duration: Duration(milliseconds: 300),
-            child: state.introState == .ready
-                ? IntroView()
-                : SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        InvitationView(
-                          controller: _controller,
-                          onTapRegister: () {
-                            final context = _targetKey.currentContext;
-                            if (context == null) return;
-                            Scrollable.ensureVisible(
-                              _targetKey.currentContext!,
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
-                        CountdownView(),
-                        WelcomeView(),
-                        LocationCelebrateView(),
-                        DayProgrammeView(),
-                        GiftsView(),
-                        TransportationView(),
-                        Container(key: _targetKey, child: RSVP()),
-                        Footer(),
-                      ],
+          body: Stack(
+            children: [
+              AnimatedOpacity(
+                opacity: state.introState == .ready ? 0 : 1,
+                duration: Duration(milliseconds: 500),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: InvitationView(
+                        controller: _controller,
+                        onTapRegister: () {
+                          final context = _targetKey.currentContext;
+                          if (context == null) return;
+                          Scrollable.ensureVisible(
+                            _targetKey.currentContext!,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                    SliverToBoxAdapter(child: CountdownView()),
+                    SliverToBoxAdapter(child: WelcomeView()),
+                    SliverToBoxAdapter(child: LocationCelebrateView()),
+                    SliverToBoxAdapter(child: DayProgrammeView()),
+                    SliverToBoxAdapter(child: GiftsView()),
+                    SliverToBoxAdapter(child: TransportationView()),
+                    SliverToBoxAdapter(key: _targetKey, child: RSVP()),
+                    SliverToBoxAdapter(child: Footer()),
+                  ],
+                ),
+              ),
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                child: state.introState == .ready
+                    ? IntroView()
+                    : SizedBox.shrink(),
+              ),
+            ],
           ),
+
+          //     AnimatedSwitcher(
+          //     duration: Duration(milliseconds: 300),
+          // child: state.introState == .ready
+          // ? IntroView()
+          //     : CustomScrollView(
+          // slivers: [
+          // SliverToBoxAdapter(
+          // child: InvitationView(
+          // controller: _controller,
+          // onTapRegister: () {
+          // final context = _targetKey.currentContext;
+          // if (context == null) return;
+          // Scrollable.ensureVisible(
+          // _targetKey.currentContext!,
+          // duration: const Duration(milliseconds: 500),
+          // curve: Curves.easeInOut,
+          // );
+          // },
+          // ),
+          // ),
+          // SliverToBoxAdapter(child: CountdownView()),
+          // SliverToBoxAdapter(child: WelcomeView()),
+          // SliverToBoxAdapter(child: LocationCelebrateView()),
+          // SliverToBoxAdapter(child: DayProgrammeView()),
+          // SliverToBoxAdapter(child: GiftsView()),
+          // SliverToBoxAdapter(child: TransportationView()),
+          // SliverToBoxAdapter(key: _targetKey, child: RSVP()),
+          // SliverToBoxAdapter(child: Footer()),
+          // ],
+          // ),
+          // ),
           floatingActionButton: state.introState == .played
               ? FloatingActionButton.small(
                   onPressed: () {
