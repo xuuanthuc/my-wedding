@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               AnimatedOpacity(
                 opacity: state.introState == .ready ? 0 : 1,
-                duration: Duration(milliseconds: 500),
+                duration: Duration(milliseconds: 300),
                 child: CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
@@ -120,38 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-
-          //     AnimatedSwitcher(
-          //     duration: Duration(milliseconds: 300),
-          // child: state.introState == .ready
-          // ? IntroView()
-          //     : CustomScrollView(
-          // slivers: [
-          // SliverToBoxAdapter(
-          // child: InvitationView(
-          // controller: _controller,
-          // onTapRegister: () {
-          // final context = _targetKey.currentContext;
-          // if (context == null) return;
-          // Scrollable.ensureVisible(
-          // _targetKey.currentContext!,
-          // duration: const Duration(milliseconds: 500),
-          // curve: Curves.easeInOut,
-          // );
-          // },
-          // ),
-          // ),
-          // SliverToBoxAdapter(child: CountdownView()),
-          // SliverToBoxAdapter(child: WelcomeView()),
-          // SliverToBoxAdapter(child: LocationCelebrateView()),
-          // SliverToBoxAdapter(child: DayProgrammeView()),
-          // SliverToBoxAdapter(child: GiftsView()),
-          // SliverToBoxAdapter(child: TransportationView()),
-          // SliverToBoxAdapter(key: _targetKey, child: RSVP()),
-          // SliverToBoxAdapter(child: Footer()),
-          // ],
-          // ),
-          // ),
           floatingActionButton: state.introState == .played
               ? FloatingActionButton.small(
                   onPressed: () {

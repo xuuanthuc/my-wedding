@@ -71,7 +71,7 @@ class _InvitationViewState extends State<InvitationView>
                           Text(
                             "NGÀY CHUNG ĐÔI ♥",
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 13,
                               color: AppColors.secondary,
                             ),
                           ),
@@ -87,7 +87,7 @@ class _InvitationViewState extends State<InvitationView>
                           Text(
                             "NGÀY 26 THÁNG 9 NĂM 2026",
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 12,
                               color: AppColors.secondary,
                             ),
                           ),
@@ -104,7 +104,7 @@ class _InvitationViewState extends State<InvitationView>
                                   Text(
                                     "Xác nhận tham dự",
                                     style: TextStyle(
-                                      fontSize: 10,
+                                      fontSize: 12,
                                       color: AppColors.secondary,
                                     ),
                                   ),

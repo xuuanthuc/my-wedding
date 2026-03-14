@@ -10,7 +10,7 @@ class AppAssets {
       "${releasePath}intro-envelope-poster-Bi8UMZ1A.webp";
   static const String introLandingThumb =
       "${releasePath}hero-video-new-poster-G6oopIOA.webp";
-  static const String backgroundMusic = "wedding-march-CDiiiBMO.mp3";
+  static const String backgroundMusic = "wedding-background-music-yxy0nS2O.mp3";
   static const String whiteTexturedPaper =
       "${releasePath}white-textured-paper-KasY8RAJ.webp";
   static const String icVolumeX = "assets/volume-x.svg";
@@ -24,6 +24,8 @@ class AppAssets {
   static const String swans = "${releasePath}swans-framed-ByH4RE7t.webp";
   static const String cupid = "${releasePath}cupid-illustration-BO3_EWaD.webp";
   static const String royalEcological = "${releasePath}royal-ecological.webp";
+  static const String culturalCenter = "${releasePath}cultural-center.webp";
+  static const String weddings = "${releasePath}wedding/w";
   static const String thucBank = "${releasePath}xuanthuc-bank.jpeg";
   static const String yenBank = "${releasePath}ngocyen-bank.jpeg";
   static const String royalEcologicalPic = "${releasePath}royal-ecological-picture.webp";

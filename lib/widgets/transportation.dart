@@ -27,7 +27,7 @@ class TransportationView extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 600),
           padding: EdgeInsets.all(40),
           child: Text(
-            "Chúng tôi đã bố trí xe đưa đón từ trung tâm Hà Nội đến tiệc cưới để bạn có thể tận hưởng buổi lễ mà không cần lo lắng.",
+            "Chúng tôi đã bố trí xe đưa đón từ trung tâm Hà Nội đến tiệc cưới nhà trai để bạn có thể tận hưởng buổi lễ mà không cần lo lắng.",
             textAlign: .center,
             style: TextStyle(color: AppColors.secondary),
           ),

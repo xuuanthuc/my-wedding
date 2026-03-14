@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wedding/constants/app_assets.dart';
 import 'package:wedding/constants/app_colors.dart';
+import 'package:wedding/widgets/wedding_carousel.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});
@@ -9,7 +10,7 @@ class WelcomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 80, horizontal: 30),
+      padding: EdgeInsets.symmetric(vertical: 80, horizontal: 24),
       child: Column(
         children: [
           Text(
@@ -50,13 +51,13 @@ class WelcomeView extends StatelessWidget {
               }
             },
           ),
-          const SizedBox(height: 40),
+          WeddingCarousel(),
           Container(
             width: 100,
             height: 1,
             color: AppColors.line,
-            margin: EdgeInsets.symmetric(vertical: 30),
           ),
+          const SizedBox(height: 30),
           Container(
             constraints: BoxConstraints(maxWidth: 150),
             child: Image.asset(AppAssets.floral, fit: .cover),
