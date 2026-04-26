@@ -20,19 +20,19 @@ class WeddingCubit extends Cubit<WeddingState> {
   ) async {
     emit(state.copyWith(isRegistering: true));
     try {
-      // await client.post(
-      //   Uri.parse(
-      //     'https://script.google.com/macros/s/AKfycbwLqKvjZhUCQfGZgK59Gljj9wHXQuxN0VAKpZapB0YdZew2DK5T1t3p35uck2A7MVI/exec',
-      //   ),
-      //   body: {
-      //     "name": name,
-      //     "attendance": attendance.message,
-      //     "transportation": attendance == AttendingState.yes
-      //         ? transportation.message
-      //         : "no",
-      //     "note": note,
-      //   },
-      // );
+      await client.post(
+        Uri.parse(
+          'https://script.google.com/macros/s/AKfycbwLqKvjZhUCQfGZgK59Gljj9wHXQuxN0VAKpZapB0YdZew2DK5T1t3p35uck2A7MVI/exec',
+        ),
+        body: {
+          "name": name,
+          "attendance": attendance.message,
+          "transportation": attendance == AttendingState.yes
+              ? transportation.message
+              : "no",
+          "note": note,
+        },
+      );
     } catch (_) {}
     emit(state.copyWith(isRegistering: false));
   }

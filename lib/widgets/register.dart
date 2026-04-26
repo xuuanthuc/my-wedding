@@ -46,7 +46,7 @@ class _RSVPState extends State<RSVP> {
   final TextEditingController _editingNoteController = TextEditingController();
   late FToast fToast;
 
-  _showToast() {
+  void _showToast() {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
