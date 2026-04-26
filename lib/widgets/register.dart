@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wedding/constants/app_colors.dart';
+import 'package:wedding/cubit/wedding_cubit.dart';
 
 import '../constants/app_assets.dart';
 
-enum AttendingState { yes, no }
+enum AttendingState {
+  yes,
+  no;
 
-enum TransportationState { yes, no }
+  String get message => switch (this) {
+    AttendingState.yes => 'yes',
+    AttendingState.no => 'no',
+  };
+
+  String get toast => switch (this) {
+    AttendingState.yes => 'Cám ơn nha, bọn mình rất vui vì bạn sẽ tham dự!',
+    AttendingState.no => 'Tiếc quá, cám ơn phản hồi của bạn!',
+  };
+}
+
+enum TransportationState {
+  yes,
+  no;
+
+  String get message => switch (this) {
+    TransportationState.yes => 'yes',
+    TransportationState.no => 'no',
+  };
+}
 
 class RSVP extends StatefulWidget {
   const RSVP({super.key});
@@ -194,52 +217,84 @@ class _RSVPState extends State<RSVP> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: _editingNameController.text.isNotEmpty
-                      ? () {
-                          setState(() {
-                            _editingNameController.clear();
-                            _editingNoteController.clear();
-                          });
-                        }
-                      : null,
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.resolveWith<Color?>((
-                      Set<WidgetState> states,
-                    ) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return Colors.grey.shade300;
-                      }
-                      return AppColors.primaryBackground;
-                    }),
-                    shape: WidgetStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          10,
-                        ), // Set the desired radius
-                      ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: .center,
-                      mainAxisSize: .max,
-                      children: [
-                        SvgPicture.asset(
-                          AppAssets.icSend,
-                          width: 14,
-                          height: 14,
-                          colorFilter: const ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.srcIn,
+                BlocBuilder<WeddingCubit, WeddingState>(
+                  buildWhen: (p, c) => p.isRegistering != c.isRegistering,
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      onPressed: _editingNameController.text.isNotEmpty
+                          ? () async {
+                              if (state.isRegistering) return;
+                              await context
+                                  .read<WeddingCubit>()
+                                  .registerAttendance(
+                                    _editingNameController.text,
+                                    _attending,
+                                    _transportation,
+                                    _editingNoteController.text,
+                                  );
+                              setState(() {
+                                _editingNameController.clear();
+                                _editingNoteController.clear();
+                              });
+                            }
+                          : null,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.resolveWith<Color?>((
+                              Set<WidgetState> states,
+                            ) {
+                              if (states.contains(WidgetState.disabled)) {
+                                return Colors.grey.shade300;
+                              }
+                              return AppColors.primaryBackground;
+                            }),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              10,
+                            ), // Set the desired radius
                           ),
                         ),
-                        const SizedBox(width: 4),
-                        Text("GỬI", style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                  ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: state.isRegistering
+                            ? Row(
+                                mainAxisAlignment: .center,
+                                mainAxisSize: .max,
+                                children: [
+                                  SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      backgroundColor: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment: .center,
+                                mainAxisSize: .max,
+                                children: [
+                                  SvgPicture.asset(
+                                    AppAssets.icSend,
+                                    width: 14,
+                                    height: 14,
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "GỬI",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
