@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wedding/constants/app_colors.dart';
 import 'package:wedding/widgets/countdown.dart';
@@ -15,6 +16,7 @@ import 'package:wedding/widgets/transportation.dart';
 import 'package:wedding/widgets/welcome.dart';
 import 'constants/app_assets.dart';
 import 'cubit/wedding_cubit.dart';
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.light,
+      builder: FToastBuilder(),
+      navigatorKey: navigatorKey,
       home: BlocProvider(
         create: (_) => WeddingCubit(),
         child: const MyHomePage(title: 'Flutter Demo Home Page'),

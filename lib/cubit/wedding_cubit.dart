@@ -1,10 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wedding/constants/app_assets.dart';
 import 'package:http/http.dart' as http;
-import 'package:wedding/constants/app_colors.dart';
 import 'package:wedding/widgets/register.dart';
 
 part 'wedding_state.dart';
@@ -22,32 +20,21 @@ class WeddingCubit extends Cubit<WeddingState> {
   ) async {
     emit(state.copyWith(isRegistering: true));
     try {
-      await client.post(
-        Uri.parse(
-          'https://script.google.com/macros/s/AKfycbwLqKvjZhUCQfGZgK59Gljj9wHXQuxN0VAKpZapB0YdZew2DK5T1t3p35uck2A7MVI/exec',
-        ),
-        body: {
-          "name": name,
-          "attendance": attendance.message,
-          "transportation": attendance == AttendingState.yes
-              ? transportation.message
-              : "no",
-          "note": note,
-        },
-      );
+      // await client.post(
+      //   Uri.parse(
+      //     'https://script.google.com/macros/s/AKfycbwLqKvjZhUCQfGZgK59Gljj9wHXQuxN0VAKpZapB0YdZew2DK5T1t3p35uck2A7MVI/exec',
+      //   ),
+      //   body: {
+      //     "name": name,
+      //     "attendance": attendance.message,
+      //     "transportation": attendance == AttendingState.yes
+      //         ? transportation.message
+      //         : "no",
+      //     "note": note,
+      //   },
+      // );
     } catch (_) {}
     emit(state.copyWith(isRegistering: false));
-    Fluttertoast.showToast(
-      msg: attendance.toast,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 3,
-      backgroundColor: AppColors.secondaryBackground,
-      textColor: AppColors.primaryBackground,
-      webBgColor: "#F7F6F5",
-      webPosition: "center",
-      fontSize: 16.0,
-    );
   }
 
   final AudioPlayer? audioPlayer = AudioPlayer();

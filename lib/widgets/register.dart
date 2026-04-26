@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wedding/constants/app_colors.dart';
 import 'package:wedding/cubit/wedding_cubit.dart';
 
@@ -43,6 +44,39 @@ class _RSVPState extends State<RSVP> {
   TransportationState _transportation = TransportationState.yes;
   final TextEditingController _editingNameController = TextEditingController();
   final TextEditingController _editingNoteController = TextEditingController();
+  late FToast fToast;
+
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: AppColors.primaryBackground,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      child: Text(_attending.toast, style: TextStyle(color: Colors.white)),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.CENTER,
+      toastDuration: Duration(seconds: 3),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,6 +270,7 @@ class _RSVPState extends State<RSVP> {
                                 _editingNameController.clear();
                                 _editingNoteController.clear();
                               });
+                              _showToast();
                             }
                           : null,
                       style: ButtonStyle(
