@@ -55,7 +55,7 @@ class Footer extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "26 THÁNG 9, 2026",
+                      "20 THÁNG 9, 2026",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: .w700,

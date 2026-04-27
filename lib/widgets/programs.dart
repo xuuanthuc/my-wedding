@@ -46,7 +46,7 @@ class DayProgrammeView extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "26 Tháng 9, 2026",
+                      "20 Tháng 9, 2026",
                       style: TextStyle(color: AppColors.secondary),
                     ),
                     const SizedBox(height: 80),

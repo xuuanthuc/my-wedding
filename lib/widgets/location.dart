@@ -104,7 +104,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12),
                       child: Text(
-                        "26 Tháng 9, 2026",
+                        "20 Tháng 9, 2026",
                         style: TextStyle(color: AppColors.secondary),
                       ),
                     ),
