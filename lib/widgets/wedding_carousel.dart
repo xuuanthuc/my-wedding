@@ -94,7 +94,11 @@ class _WeddingCarouselState extends State<WeddingCarousel> {
                 child: InteractiveViewer(
                   minScale: 1,
                   maxScale: 4,
-                  child: Image.asset(imagePath, fit: BoxFit.contain),
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain,
+                    frameBuilder: _imageFrameBuilder,
+                  ),
                 ),
               ),
               Positioned(
@@ -140,7 +144,17 @@ class _WeddingCarouselState extends State<WeddingCarousel> {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () => _openImagePreview(context, imagePath),
-                      child: Image.asset(imagePath, fit: BoxFit.cover),
+                      child: Image.asset(
+                        imagePath,
+                        fit: BoxFit.cover,
+                        cacheWidth: 750,
+                        filterQuality: FilterQuality.medium,
+                        frameBuilder: _imageFrameBuilder,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const _CarouselImagePlaceholder(
+                              showError: true,
+                            ),
+                      ),
                     ),
                   ),
                 ),
@@ -152,11 +166,61 @@ class _WeddingCarouselState extends State<WeddingCarousel> {
     );
   }
 
+  Widget _imageFrameBuilder(
+    BuildContext context,
+    Widget child,
+    int? frame,
+    bool wasSynchronouslyLoaded,
+  ) {
+    if (wasSynchronouslyLoaded || frame != null) return child;
+    return const _CarouselImagePlaceholder();
+  }
+
   @override
   void dispose() {
     _autoScrollTimer?.cancel();
     _resumeAutoScrollTimer?.cancel();
     controller.dispose();
     super.dispose();
+  }
+}
+
+class _CarouselImagePlaceholder extends StatelessWidget {
+  const _CarouselImagePlaceholder({this.showError = false});
+
+  final bool showError;
+
+  @override
+  Widget build(BuildContext context) {
+    return ColoredBox(
+      color: const Color(0xFFF4EEE7),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              showError ? Icons.broken_image_outlined : Icons.photo_outlined,
+              color: const Color(0xFFB19878),
+              size: 32,
+            ),
+            const SizedBox(height: 10),
+            if (showError)
+              const Text(
+                'Không thể tải ảnh',
+                style: TextStyle(color: Color(0xFFB19878), fontSize: 12),
+              )
+            else
+              const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Color(0xFFB19878),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }
