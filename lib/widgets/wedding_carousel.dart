@@ -12,61 +12,150 @@ class WeddingCarousel extends StatefulWidget {
 }
 
 class _WeddingCarouselState extends State<WeddingCarousel> {
+  static const double _imageWidth = 250;
+  static const double _imagePadding = 12;
+  static const double _itemExtent = _imageWidth + (_imagePadding * 2);
+  static const int _initialIndex = 3000;
 
-  final List<String> images = [
-    "${AppAssets.weddings}1.webp",
-    "${AppAssets.weddings}2.webp",
-    "${AppAssets.weddings}3.webp",
-    "${AppAssets.weddings}4.webp",
-    "${AppAssets.weddings}5.webp",
+  static const List<String> images = [
+    '${AppAssets.weddings}ING00089.jpg',
+    '${AppAssets.weddings}ING00135.jpg',
+    '${AppAssets.weddings}ING09004.jpg',
+    '${AppAssets.weddings}ING09093.jpg',
+    '${AppAssets.weddings}ING09149.jpg',
+    '${AppAssets.weddings}ING09190.jpg',
+    '${AppAssets.weddings}ING09216.jpg',
+    '${AppAssets.weddings}ING09230.jpg',
+    '${AppAssets.weddings}ING09306.jpg',
+    '${AppAssets.weddings}ING09327.jpg',
+    '${AppAssets.weddings}ING09335.jpg',
+    '${AppAssets.weddings}ING09357.jpg',
+    '${AppAssets.weddings}ING09379.jpg',
+    '${AppAssets.weddings}ING09505.jpg',
+    '${AppAssets.weddings}ING09526.jpg',
+    '${AppAssets.weddings}ING09548.jpg',
+    '${AppAssets.weddings}ING09582.jpg',
+    '${AppAssets.weddings}ING09608.jpg',
+    '${AppAssets.weddings}ING09710.jpg',
+    '${AppAssets.weddings}ING09718.jpg',
+    '${AppAssets.weddings}ING09750.jpg',
+    '${AppAssets.weddings}ING09757.jpg',
+    '${AppAssets.weddings}ING09777.jpg',
+    '${AppAssets.weddings}ING09822.jpg',
+    '${AppAssets.weddings}ING09842.jpg',
+    '${AppAssets.weddings}ING09899.jpg',
+    '${AppAssets.weddings}ING09910.jpg',
+    '${AppAssets.weddings}ING09927.jpg',
+    '${AppAssets.weddings}ING09939.jpg',
+    '${AppAssets.weddings}ING09997.jpg',
   ];
 
-  final ScrollController controller = ScrollController();
-  late Timer timer;
-
-  final items = List.generate(5, (i) {
-    return Image.asset("${AppAssets.weddings}${i + 1}.jpg", fit: .cover);
-  });
+  final ScrollController controller = ScrollController(
+    initialScrollOffset: _initialIndex * _itemExtent,
+  );
+  Timer? _autoScrollTimer;
+  Timer? _resumeAutoScrollTimer;
+  bool _isUserInteracting = false;
 
   @override
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(const Duration(milliseconds: 40), (_) {
-      controller.jumpTo(controller.offset + 1);
+    _autoScrollTimer = Timer.periodic(const Duration(milliseconds: 40), (_) {
+      if (controller.hasClients && !_isUserInteracting) {
+        controller.jumpTo(controller.offset + 1);
+      }
     });
   }
 
+  void _pauseAutoScroll() {
+    _isUserInteracting = true;
+    _resumeAutoScrollTimer?.cancel();
+  }
+
+  void _resumeAutoScroll() {
+    _resumeAutoScrollTimer?.cancel();
+    _resumeAutoScrollTimer = Timer(const Duration(seconds: 2), () {
+      if (mounted) _isUserInteracting = false;
+    });
+  }
+
+  void _openImagePreview(BuildContext context, String imagePath) {
+    _pauseAutoScroll();
+    showDialog<void>(
+      context: context,
+      barrierColor: Colors.black87,
+      builder: (dialogContext) {
+        return Dialog.fullscreen(
+          backgroundColor: Colors.black,
+          child: Stack(
+            children: [
+              Center(
+                child: InteractiveViewer(
+                  minScale: 1,
+                  maxScale: 4,
+                  child: Image.asset(imagePath, fit: BoxFit.contain),
+                ),
+              ),
+              Positioned(
+                top: 16,
+                right: 16,
+                child: IconButton(
+                  tooltip: 'Đóng',
+                  color: Colors.white,
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.of(dialogContext).pop(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(_resumeAutoScroll);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 350,
       margin: EdgeInsets.symmetric(vertical: 70),
-      child: ListView.builder(
-        controller: controller,
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final realIndex = index % images.length;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: SizedBox(
-              width: 250,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.asset(images[realIndex], fit: BoxFit.cover),
+      child: Listener(
+        onPointerDown: (_) => _pauseAutoScroll(),
+        onPointerUp: (_) => _resumeAutoScroll(),
+        onPointerCancel: (_) => _resumeAutoScroll(),
+        child: ListView.builder(
+          controller: controller,
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemExtent: _itemExtent,
+          itemBuilder: (context, index) {
+            final imagePath = images[index % images.length];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: _imagePadding),
+              child: SizedBox(
+                width: _imageWidth,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () => _openImagePreview(context, imagePath),
+                      child: Image.asset(imagePath, fit: BoxFit.cover),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    _autoScrollTimer?.cancel();
+    _resumeAutoScrollTimer?.cancel();
     controller.dispose();
     super.dispose();
   }

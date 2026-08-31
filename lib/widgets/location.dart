@@ -104,7 +104,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12),
                       child: Text(
-                        "20 Tháng 9, 2026",
+                        "30 Tháng 9, 2026",
                         style: TextStyle(color: AppColors.secondary),
                       ),
                     ),
@@ -118,7 +118,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
                       ),
                     ),
                     Text(
-                      ("12:00"),
+                      ("11:00"),
                       style: TextStyle(fontFamily: 'Lavanderia', fontSize: 30),
                     ),
                   ],
@@ -255,7 +255,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12),
                       child: Text(
-                        "25 Tháng 9, 2026",
+                        "29 Tháng 9, 2026",
                         style: TextStyle(color: AppColors.secondary),
                       ),
                     ),
@@ -269,7 +269,7 @@ class _LocationCelebrateViewState extends State<LocationCelebrateView> {
                       ),
                     ),
                     Text(
-                      ("18:00"),
+                      ("11:00"),
                       style: TextStyle(fontFamily: 'Lavanderia', fontSize: 30),
                     ),
                   ],

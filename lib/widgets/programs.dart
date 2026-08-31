@@ -27,7 +27,7 @@ class DayProgrammeView extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 800,
+          height: 1300,
           width: double.infinity,
           child: Stack(
             alignment: .topCenter,
@@ -46,39 +46,91 @@ class DayProgrammeView extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "20 Tháng 9, 2026",
+                      "29 & 30 Tháng 9, 2026",
                       style: TextStyle(color: AppColors.secondary),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 50),
+                    Text(
+                      '29 THÁNG 9, 2026',
+                      style: TextStyle(
+                        color: AppColors.secondary,
+                        fontWeight: .w700,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    buildRow(
+                      direction: .right,
+                      labelTime: '08:30',
+                      title: 'NHÀ TRAI NẠP TÀI',
+                    ),
+                    buildRow(
+                      direction: .left,
+                      labelTime: '09:00',
+                      title: 'THƯA CHUYỆN & TRAO LỄ',
+                    ),
+                    buildRow(
+                      direction: .right,
+                      labelTime: '09:30',
+                      title: 'CHỤP ẢNH LƯU NIỆM',
+                    ),
+                    buildRow(
+                      direction: .left,
+                      labelTime: '10:30',
+                      title: 'NHÀ GÁI ĐÓN KHÁCH',
+                    ),
+                    buildRow(
+                      direction: .right,
+                      labelTime: '11:00',
+                      title: 'NHÀ GÁI MỜI KHÁCH',
+                    ),
+                    buildRow(
+                      direction: .left,
+                      labelTime: '11:30',
+                      title: 'KHAI TIỆC & CHÚC MỪNG',
+                    ),
+                    buildRow(
+                      direction: .right,
+                      labelTime: '',
+                      title: '',
+                    ),
+                    buildRow(
+                      direction: .right,
+                      labelTime: '17:00',
+                      title: 'NHÀ TRAI MỜI KHÁCH',
+                    ),
+                    const SizedBox(height: 28),
+                    Text(
+                      '30 THÁNG 9, 2026',
+                      style: TextStyle(
+                        color: AppColors.secondary,
+                        fontWeight: .w700,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     buildRow(
                       direction: .right,
                       labelTime: '10:00',
-                      title: 'ĐÓN KHÁCH',
+                      title: 'NHÀ TRAI ĐÓN KHÁCH',
                     ),
                     buildRow(
                       direction: .left,
+                      labelTime: '10:30',
+                      title: 'CHỤP ẢNH LƯU NIỆM',
+                    ),
+                    buildRow(
+                      direction: .right,
                       labelTime: '11:00',
-                      title: 'KHAI MẠC',
-                    ),
-                    buildRow(
-                      direction: .right,
-                      labelTime: '11:45',
-                      title: 'LỄ THÀNH HÔN',
+                      title: 'ĐÓN DÂU & LỄ CƯỚI CHÍNH',
                     ),
                     buildRow(
                       direction: .left,
-                      labelTime: '12:00',
-                      title: 'KHAI TIỆC',
+                      labelTime: '11:10',
+                      title: 'CHỤP ẢNH MỪNG CƯỚI',
                     ),
                     buildRow(
                       direction: .right,
-                      labelTime: '01:00',
-                      title: 'GIAO LƯU',
-                    ),
-                    buildRow(
-                      direction: .left,
-                      labelTime: '01:30',
-                      title: 'KẾT THÚC',
+                      labelTime: '11:30',
+                      title: 'KHAI TIỆC  & CHÚC MỪNG',
                     ),
                   ],
                 ),

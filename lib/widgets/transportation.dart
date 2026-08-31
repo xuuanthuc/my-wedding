@@ -27,7 +27,7 @@ class TransportationView extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 600),
           padding: EdgeInsets.all(40),
           child: Text(
-            "Chúng tôi đã bố trí xe đưa đón từ trung tâm Hà Nội đến tiệc cưới nhà trai để bạn có thể tận hưởng buổi lễ mà không cần lo lắng.",
+            "Chúng tôi đã bố trí xe đưa đón từ trung tâm Hà Nội về Thanh Hoá trong hai ngày để bạn có thể an tâm chung vui cùng gia đình.",
             textAlign: .center,
             style: TextStyle(color: AppColors.secondary),
           ),
@@ -105,12 +105,21 @@ class TransportationView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                "Từ toà nhà Sannam: 08:00",
+                "LỊCH XE DI CHUYỂN VỀ NHÀ TRAI",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: .w700,
+                  color: AppColors.primary,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "Ngày 29/9 · Từ toà nhà Sannam: 14:00",
                 style: TextStyle(fontSize: 12, color: AppColors.primary),
               ),
               const SizedBox(height: 4),
               Text(
-                "Trở lại Hà Nội: 14:00",
+                "Ngày 30/9 · Từ toà nhà Sannam: 08:00",
                 style: TextStyle(fontSize: 12, color: AppColors.primary),
               ),
             ],

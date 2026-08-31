@@ -61,7 +61,7 @@ class WeddingCubit extends Cubit<WeddingState> {
   }
 
   void countRemainingTime() {
-    DateTime target = DateTime(2026, 9, 26, 12);
+    DateTime target = DateTime(2026, 9, 30, 11);
     DateTime now = DateTime.now();
 
     Duration diff = target.difference(now);

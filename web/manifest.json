@@ -1,11 +1,11 @@
 {
-    "name": "wedding",
-    "short_name": "wedding",
+    "name": "Thực & Yến",
+    "short_name": "Thực & Yến",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Lễ cưới của Thực & Yến.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -25,7 +25,7 @@ class AppAssets {
   static const String cupid = "${releasePath}cupid-illustration-BO3_EWaD.webp";
   static const String royalEcological = "${releasePath}royal-ecological.webp";
   static const String culturalCenter = "${releasePath}cultural-center.webp";
-  static const String weddings = "${releasePath}wedding/w";
+  static const String weddings = "${releasePath}wedding/";
   static const String thucBank = "${releasePath}xuanthuc-bank.jpeg";
   static const String yenBank = "${releasePath}ngocyen-bank.jpeg";
   static const String royalEcologicalPic = "${releasePath}royal-ecological-picture.webp";

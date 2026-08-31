@@ -48,7 +48,7 @@ class _CountdownViewState extends State<CountdownView> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "NGÀY 20 THÁNG 9 NĂM 2026",
+                  "11:00 · NGÀY 30 THÁNG 9 NĂM 2026",
                   style: TextStyle(color: AppColors.secondary),
                 ),
                 const SizedBox(height: 10),

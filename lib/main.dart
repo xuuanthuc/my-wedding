@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Thực & Yến',
       theme: ThemeData(
         fontFamily: 'Niramit',
         colorScheme: ColorScheme(
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       home: BlocProvider(
         create: (_) => WeddingCubit(),
-        child: const MyHomePage(title: 'Flutter Demo Home Page'),
+        child: const MyHomePage(title: 'Thực & Yến'),
       ),
     );
   }

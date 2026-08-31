@@ -85,7 +85,7 @@ class _InvitationViewState extends State<InvitationView>
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "NGÀY 20 THÁNG 9 NĂM 2026",
+                            "NGÀY 30 THÁNG 9 NĂM 2026",
                             style: TextStyle(
                               fontSize: 12,
                               color: AppColors.secondary,
