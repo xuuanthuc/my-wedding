@@ -35,7 +35,8 @@ class _InvitationViewState extends State<InvitationView>
     _arrowAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
-    )..repeat(reverse: true);
+    )
+      ..repeat(reverse: true);
 
     widget.controller.addListener(_videoListener);
 
@@ -121,30 +122,23 @@ class _InvitationViewState extends State<InvitationView>
     final value = widget.controller.value;
     final initialized = value.isInitialized;
 
-    // Khi video init được thì dùng đúng tỷ lệ video.
-    // Nếu iPhone init video lỗi thì fallback về tỷ lệ hero 16:9.
-    final double aspectRatio =
-    initialized && value.aspectRatio > 0
-        ? value.aspectRatio
-        : 16 / 9;
+    final screenHeight = MediaQuery.sizeOf(context).height;
 
     return SizedBox(
       width: double.infinity,
       child: Center(
         child: Container(
+          width: double.infinity,
           constraints: const BoxConstraints(
             maxWidth: 500,
           ),
-          child: AspectRatio(
-            aspectRatio: aspectRatio,
+          child: SizedBox(
+            height: screenHeight,
             child: Stack(
               fit: StackFit.expand,
               children: [
                 // ==============================================
                 // FALLBACK IMAGE
-                //
-                // Luôn nằm bên dưới.
-                // Không được quyết định kích thước layout.
                 // ==============================================
                 Image.asset(
                   AppAssets.introLandingThumb,
@@ -153,8 +147,6 @@ class _InvitationViewState extends State<InvitationView>
 
                 // ==============================================
                 // VIDEO
-                //
-                // Chỉ phủ lên thumbnail khi thực sự chạy.
                 // ==============================================
                 if (initialized && _videoStarted)
                   FittedBox(
@@ -169,13 +161,11 @@ class _InvitationViewState extends State<InvitationView>
                   ),
 
                 // ==============================================
-                // UI / TEXT
+                // UI
                 // ==============================================
                 Padding(
-                  padding: EdgeInsets.only(
-                    top: initialized
-                        ? value.size.height * 0.02
-                        : 20,
+                  padding: const EdgeInsets.only(
+                    top: 20,
                     bottom: 40,
                   ),
                   child: Column(
@@ -265,13 +255,5 @@ class _InvitationViewState extends State<InvitationView>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(_videoListener);
-    _arrowAnimationController.dispose();
-
-    super.dispose();
   }
 }

@@ -147,8 +147,6 @@ class _WeddingCarouselState extends State<WeddingCarousel> {
                       child: Image.asset(
                         imagePath,
                         fit: BoxFit.cover,
-                        cacheWidth: 750,
-                        filterQuality: FilterQuality.medium,
                         frameBuilder: _imageFrameBuilder,
                         errorBuilder: (context, error, stackTrace) =>
                             const _CarouselImagePlaceholder(
