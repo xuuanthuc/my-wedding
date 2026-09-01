@@ -15,8 +15,6 @@ class InvitationView extends StatefulWidget {
 
   final VideoPlayerController controller;
   final VoidCallback onTapRegister;
-
-  // Chỉ bắt đầu thử play hero sau khi intro kết thúc.
   final bool shouldPlay;
 
   @override
@@ -48,7 +46,6 @@ class _InvitationViewState extends State<InvitationView>
   void didUpdateWidget(covariant InvitationView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Intro vừa kết thúc.
     if (!oldWidget.shouldPlay && widget.shouldPlay) {
       _maybePlayVideo();
     }
@@ -59,8 +56,7 @@ class _InvitationViewState extends State<InvitationView>
 
     final value = widget.controller.value;
 
-    // Nếu video lỗi trong lúc đang chạy,
-    // quay trở lại ảnh fallback.
+    // Video lỗi -> quay lại thumbnail.
     if (value.hasError) {
       if (_videoStarted) {
         setState(() {
@@ -71,16 +67,14 @@ class _InvitationViewState extends State<InvitationView>
       return;
     }
 
-    // Nếu controller vừa initialize xong
-    // và intro cũng đã kết thúc thì thử play.
+    // Video vừa initialize xong.
     if (widget.shouldPlay &&
         value.isInitialized &&
         !_playAttempted) {
       _tryPlayVideo();
     }
 
-    // Chỉ hiện video khi nó thực sự chạy
-    // và đã có frame.
+    // Chỉ hiện video khi thực sự đã chạy và có frame.
     if (!_videoStarted &&
         value.isInitialized &&
         value.isPlaying &&
@@ -95,8 +89,6 @@ class _InvitationViewState extends State<InvitationView>
     if (!widget.shouldPlay) return;
 
     if (!widget.controller.value.isInitialized) {
-      // Chưa init xong.
-      // Listener sẽ tự gọi _tryPlayVideo khi init xong.
       return;
     }
 
@@ -112,29 +104,29 @@ class _InvitationViewState extends State<InvitationView>
 
     try {
       await widget.controller.setLooping(true);
-
-      // Hero là background video nên mute.
-      // iOS cũng dễ cho autoplay muted hơn.
       await widget.controller.setVolume(0);
-
       await widget.controller.play();
     } catch (e) {
       debugPrint(
         'Hero video play failed. Using static image: $e',
       );
 
-      // Không làm gì cả.
-      // _videoStarted = false
-      // => thumbnail tiếp tục hiển thị.
+      // Không cần làm gì.
+      // Thumbnail vẫn tiếp tục hiển thị.
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final initialized =
-        widget.controller.value.isInitialized;
+    final value = widget.controller.value;
+    final initialized = value.isInitialized;
 
-    final videoSize = widget.controller.value.size;
+    // Khi video init được thì dùng đúng tỷ lệ video.
+    // Nếu iPhone init video lỗi thì fallback về tỷ lệ hero 16:9.
+    final double aspectRatio =
+    initialized && value.aspectRatio > 0
+        ? value.aspectRatio
+        : 16 / 9;
 
     return SizedBox(
       width: double.infinity,
@@ -143,47 +135,46 @@ class _InvitationViewState extends State<InvitationView>
           constraints: const BoxConstraints(
             maxWidth: 500,
           ),
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              // =================================================
-              // STATIC FALLBACK
-              //
-              // LUÔN render ảnh này.
-              // =================================================
-              Image.asset(
-                AppAssets.introLandingThumb,
-                width: double.infinity,
-                fit: BoxFit.fitWidth,
-              ),
+          child: AspectRatio(
+            aspectRatio: aspectRatio,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // ==============================================
+                // FALLBACK IMAGE
+                //
+                // Luôn nằm bên dưới.
+                // Không được quyết định kích thước layout.
+                // ==============================================
+                Image.asset(
+                  AppAssets.introLandingThumb,
+                  fit: BoxFit.cover,
+                ),
 
-              // =================================================
-              // VIDEO
-              //
-              // Chỉ render đè lên ảnh khi video đã chạy thật.
-              // =================================================
-              if (initialized && _videoStarted)
-                Positioned.fill(
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
+                // ==============================================
+                // VIDEO
+                //
+                // Chỉ phủ lên thumbnail khi thực sự chạy.
+                // ==============================================
+                if (initialized && _videoStarted)
+                  FittedBox(
+                    fit: BoxFit.cover,
                     child: SizedBox(
-                      width: videoSize.width,
-                      height: videoSize.height,
+                      width: value.size.width,
+                      height: value.size.height,
                       child: VideoPlayer(
                         widget.controller,
                       ),
                     ),
                   ),
-                ),
 
-              // =================================================
-              // TEXT / CONTENT
-              // =================================================
-              Positioned.fill(
-                child: Padding(
+                // ==============================================
+                // UI / TEXT
+                // ==============================================
+                Padding(
                   padding: EdgeInsets.only(
                     top: initialized
-                        ? videoSize.height * 0.02
+                        ? value.size.height * 0.02
                         : 20,
                     bottom: 40,
                   ),
@@ -268,8 +259,8 @@ class _InvitationViewState extends State<InvitationView>
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -279,7 +270,6 @@ class _InvitationViewState extends State<InvitationView>
   @override
   void dispose() {
     widget.controller.removeListener(_videoListener);
-
     _arrowAnimationController.dispose();
 
     super.dispose();
