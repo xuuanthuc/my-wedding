@@ -9,7 +9,7 @@ class AppAssets {
   static const String introEnvelopeThumb =
       "${releasePath}intro-envelope-poster-Bi8UMZ1A.webp";
   static const String introLandingThumb =
-      "${releasePath}hero-video-new-poster-G6oopIOA.webp";
+      "${releasePath}hero-video-new-G6oopIOA_00-00-000.png";
   static const String backgroundMusic = "wedding-background-music-yxy0nS2O.mp3";
   static const String whiteTexturedPaper =
       "${releasePath}white-textured-paper-KasY8RAJ.webp";
