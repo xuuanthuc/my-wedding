@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:video_player/video_player.dart';
 import 'package:wedding/constants/app_colors.dart';
 
 import '../constants/app_assets.dart';
@@ -8,14 +7,10 @@ import '../constants/app_assets.dart';
 class InvitationView extends StatefulWidget {
   const InvitationView({
     super.key,
-    required this.controller,
     required this.onTapRegister,
-    required this.shouldPlay,
   });
 
-  final VideoPlayerController controller;
   final VoidCallback onTapRegister;
-  final bool shouldPlay;
 
   @override
   State<InvitationView> createState() => _InvitationViewState();
@@ -24,9 +19,6 @@ class InvitationView extends StatefulWidget {
 class _InvitationViewState extends State<InvitationView>
     with SingleTickerProviderStateMixin {
   late AnimationController _arrowAnimationController;
-
-  bool _videoStarted = false;
-  bool _playAttempted = false;
 
   @override
   void initState() {
@@ -37,91 +29,16 @@ class _InvitationViewState extends State<InvitationView>
       duration: const Duration(seconds: 2),
     )
       ..repeat(reverse: true);
-
-    widget.controller.addListener(_videoListener);
-
-    _maybePlayVideo();
   }
 
   @override
-  void didUpdateWidget(covariant InvitationView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (!oldWidget.shouldPlay && widget.shouldPlay) {
-      _maybePlayVideo();
-    }
-  }
-
-  void _videoListener() {
-    if (!mounted) return;
-
-    final value = widget.controller.value;
-
-    // Video lỗi -> quay lại thumbnail.
-    if (value.hasError) {
-      if (_videoStarted) {
-        setState(() {
-          _videoStarted = false;
-        });
-      }
-
-      return;
-    }
-
-    // Video vừa initialize xong.
-    if (widget.shouldPlay &&
-        value.isInitialized &&
-        !_playAttempted) {
-      _tryPlayVideo();
-    }
-
-    // Chỉ hiện video khi thực sự đã chạy và có frame.
-    if (!_videoStarted &&
-        value.isInitialized &&
-        value.isPlaying &&
-        value.position > Duration.zero) {
-      setState(() {
-        _videoStarted = true;
-      });
-    }
-  }
-
-  void _maybePlayVideo() {
-    if (!widget.shouldPlay) return;
-
-    if (!widget.controller.value.isInitialized) {
-      return;
-    }
-
-    if (_playAttempted) return;
-
-    _tryPlayVideo();
-  }
-
-  Future<void> _tryPlayVideo() async {
-    if (_playAttempted) return;
-
-    _playAttempted = true;
-
-    try {
-      await widget.controller.setLooping(true);
-      await widget.controller.setVolume(0);
-      await widget.controller.play();
-    } catch (e) {
-      debugPrint(
-        'Hero video play failed. Using static image: $e',
-      );
-
-      // Không cần làm gì.
-      // Thumbnail vẫn tiếp tục hiển thị.
-    }
+  void dispose() {
+    _arrowAnimationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final value = widget.controller.value;
-    final initialized = value.isInitialized;
-
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return SizedBox(
@@ -138,27 +55,12 @@ class _InvitationViewState extends State<InvitationView>
               fit: StackFit.expand,
               children: [
                 // ==============================================
-                // FALLBACK IMAGE
+                // HEADER IMAGE
                 // ==============================================
                 Image.asset(
-                  AppAssets.introLandingThumb,
+                  AppAssets.heroImage,
                   fit: BoxFit.cover,
                 ),
-
-                // ==============================================
-                // VIDEO
-                // ==============================================
-                if (initialized && _videoStarted)
-                  FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: value.size.width,
-                      height: value.size.height,
-                      child: VideoPlayer(
-                        widget.controller,
-                      ),
-                    ),
-                  ),
 
                 // ==============================================
                 // UI

@@ -108,39 +108,6 @@ class WeddingCubit extends Cubit<WeddingState> {
     }
   }
 
-  Future<void> introIsCompleted() async {
-    // ===================================================
-    // QUAN TRỌNG:
-    //
-    // Mở website TRƯỚC.
-    // Audio có chạy được hay không không liên quan.
-    // ===================================================
-    emit(
-      state.copyWith(
-        introState: IntroState.played,
-        enableVolume: false,
-      ),
-    );
-
-    try {
-      await audioPlayer.resume();
-
-      if (isClosed) return;
-
-      emit(
-        state.copyWith(
-          enableVolume: true,
-        ),
-      );
-    } catch (e) {
-      // Safari/iPhone có thể block autoplay.
-      // Thiệp vẫn hoạt động bình thường.
-      print(
-        'Background music autoplay blocked: $e',
-      );
-    }
-  }
-
   void countRemainingTime() {
     final target = DateTime(
       2026,

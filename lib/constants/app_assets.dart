@@ -1,14 +1,8 @@
-import 'package:flutter/foundation.dart';
-
 class AppAssets {
   AppAssets._();
 
-  static const releasePath = kDebugMode ? '' : 'assets/';
-  static const String introLanding = "assets/hero-video-new-G6oopIOA.mp4";
-  static const String introEnvelope = "assets/intro-envelope-HFQPjaLP.mp4";
-  static const String introEnvelopeThumb =
-      "${releasePath}intro-envelope-poster-Bi8UMZ1A.webp";
-  static const String introLandingThumb =
+  static const releasePath = 'assets/';
+  static const String heroImage =
       "${releasePath}hero-video-new-G6oopIOA_00-00-000.png";
   static const String backgroundMusic = "wedding-background-music-yxy0nS2O.mp3";
   static const String whiteTexturedPaper =
